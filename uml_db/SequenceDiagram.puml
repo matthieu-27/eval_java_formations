@@ -5,8 +5,7 @@ autonumber
 
 User -> System: displayAll()
 activate System
-System -> System: Query DB
-System --> User: Returns all training lists
+System --> User: Returns all created courses (static method)
 deactivate System
 
 User -> System: displayList(type)
