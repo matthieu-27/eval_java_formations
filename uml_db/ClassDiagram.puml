@@ -4,6 +4,7 @@ class User{
 int id
 String name
 }
+
 class Course{
 int id
 String name
@@ -17,11 +18,21 @@ BigDecimal price
 {static} searchCourses(String keyword)
 }
 
-User -right- Course : > consults
+class "DAO<T>" {
+connect: CourseDao
+find(int id): T
+create(obj: T) : T
+update(obj: T) : T
+delete(obj: T) : void
+}
 
+User "1" -right- "1..*" Course : > consults
+"DAO<T>" <|-- Course
 enum CourseType{
     PRESENTIEL,
     DISTANCIEL
 }
+
+
 
 @enduml
