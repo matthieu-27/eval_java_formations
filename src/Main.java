@@ -1,6 +1,10 @@
 import Enums.CourseType;
 import Models.Course;
 import Models.User;
+import Services.CourseService;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class Main {
@@ -14,5 +18,15 @@ public class Main {
         Course svt = new Course("SVT", CourseType.DISTANCIEL);
 
         System.out.println(eps.name() + ", " + svt.name() + ":" + svt.type());
+        try {
+            ArrayList<Course> courses = CourseService.displayAll();
+            for(Course c: courses){
+                System.out.println(c.name());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 }
