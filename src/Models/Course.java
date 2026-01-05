@@ -2,15 +2,23 @@ package Models;
 
 import Enums.CourseType;
 
+import java.math.BigDecimal;
+
 public class Course {
     private int id;
     private String name;
-
-
-
     private String description;
     private int duration;
     private CourseType type;
+    private BigDecimal price;
+
+    public Course(int id, String name, String description, int duration, CourseType type, BigDecimal price){
+        this.name = name;
+        this.description = description;
+        this.duration = duration;
+        this.type = type;
+        this.price = price;
+    }
 
     public Course(String name, String description, int duration, CourseType type){
         this.name = name;
@@ -29,6 +37,7 @@ public class Course {
         this.name = name;
         this.type = type;
     }
+
     public Course(String name, int duration){
         this.name = name;
         this.duration = duration;
@@ -79,4 +88,13 @@ public class Course {
     public void setType(CourseType type) {
         this.type = type;
     }
+
+    public BigDecimal price() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
 }
