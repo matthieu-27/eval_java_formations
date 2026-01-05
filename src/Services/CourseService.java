@@ -25,7 +25,7 @@ public class CourseService {
             try (Connection c = connect()) {
                 ps = c.prepareStatement(query);
                 ResultSet rs = ps.executeQuery();
-                if(rs.next()){
+                while(rs.next()){
                     Course new_course = new Course(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getInt("duration"), Enum.valueOf(CourseType.class, rs.getString("type")), rs.getBigDecimal("price"));
                     courses.add(new_course);
                 }
