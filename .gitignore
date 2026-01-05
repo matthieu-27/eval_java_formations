@@ -27,9 +27,6 @@
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 
-
-mysql-connector-j-9.4.0/
-
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
