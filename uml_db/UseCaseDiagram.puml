@@ -1,0 +1,10 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor User
+rectangle VenteFormation {
+  User -- (afficher toutes les formations disponibles)
+  User -- (rechercher parmi les formations via un mot clé)
+  User -- (afficher les formations disponibles par type:\n distanciel et présentiel)
+}
+@enduml
