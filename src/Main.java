@@ -19,7 +19,7 @@ public class Main {
 
         System.out.println(eps.name() + ", " + svt.name() + ":" + svt.type());
         try {
-            ArrayList<Course> courses = CourseService.displayAll();
+            ArrayList<Course> courses = CourseService.getAllCourses();
             for(Course c: courses){
                 System.out.println(c.name());
             }

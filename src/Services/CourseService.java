@@ -1,6 +1,7 @@
 package Services;
 
 import Enums.CourseType;
+import JDBC.MariaDbConnection;
 import Models.Course;
 
 import java.sql.*;
@@ -8,15 +9,11 @@ import java.util.ArrayList;
 
 public class CourseService {
 
-    private static String url = "jdbc:mysql://localhost:3306/buymy_course";
-    private static String user = "tp_java";
-    private static String password = "java8";
-
     private static Connection connect() throws SQLException {
-        return DriverManager.getConnection(url, user, password);
+        return MariaDbConnection.getInstance();
     }
 
-    public static ArrayList<Course> displayAll() throws SQLException {
+    public static ArrayList<Course> getAllCourses() throws SQLException {
         String query = "SELECT * FROM courses";
         ArrayList<Course> courses = new ArrayList<>();
 
