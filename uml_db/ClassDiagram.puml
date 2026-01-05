@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/class-diagram
+class User{
+int id
+String name
+}
+class Course{
+int id
+String name
+String description
+int duration
+String type
+BigDecimal price
+{static} ArrayList<Course> coursesList
+{static} getAllCourses()
+{static} getCourses(String type)
+{static} searchCourses(String keyword)
+}
+
+User -right- Course : > consults
+
+
+@enduml
