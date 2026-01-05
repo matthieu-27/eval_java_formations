@@ -9,7 +9,7 @@ int id
 String name
 String description
 int duration
-String type
+CourseType type
 BigDecimal price
 {static} ArrayList<Course> coursesList
 {static} getAllCourses()
@@ -19,5 +19,9 @@ BigDecimal price
 
 User -right- Course : > consults
 
+enum CourseType{
+    PRESENTIEL,
+    DISTANCIEL
+}
 
 @enduml
