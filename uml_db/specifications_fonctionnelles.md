@@ -1,7 +1,7 @@
 # Spécifications fonctionnelles
 
 ## But de l'application
-   
+
 ### L'application VenteFormation est une application de vente de formation. Elle permet de :
 
 ---
