@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+
+User -> System: displayAll()
+activate System
+System --> User: Returns all training lists
+deactivate System
+
+User -> System: displayList(type)
+activate System
+System -> System: Check if type exists
+alt type exists
+    User <-- System: Returns all *type* training lists
+else type doesn't exists
+    User <-- System: Throws UnknownTypeException
+end
+deactivate System
+
+User -> System: searchCourse(keyword)
+activate System
+System -> System: Check Input && Query DB
+alt found courses
+    User <-- System: Returns all training lists with *keyword*
+else nothing found
+    User <-- System: Returns empty list
+end
+deactivate System
+
+@enduml
