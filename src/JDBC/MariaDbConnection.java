@@ -15,12 +15,10 @@ public class MariaDbConnection {
     private static Connection connect;
 
     public static Connection getInstance() {
-        if(connect == null){
-            try {
-                connect = DriverManager.getConnection(url, user, password);
-            } catch (SQLException e) {
-                e.printStackTrace(); // Call to 'printStackTrace()' should probably be replaced with more robust logging
-            }
+        try {
+            connect = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace(); // Call to 'printStackTrace()' should probably be replaced with more robust logging
         }
         return connect;
     }

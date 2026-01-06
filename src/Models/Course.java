@@ -3,6 +3,7 @@ package Models;
 import Enums.CourseType;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class Course {
     private int id;
@@ -12,7 +13,20 @@ public class Course {
     private CourseType type;
     private BigDecimal price;
 
+    public static ArrayList<Course> coursesList = new ArrayList<>();
+
     public Course(int id, String name, String description, int duration, CourseType type, BigDecimal price){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.duration = duration;
+        this.type = type;
+        this.price = price;
+        coursesList.add(this);
+    }
+
+
+    public Course(String name, String description, int duration, CourseType type, BigDecimal price){
         this.name = name;
         this.description = description;
         this.duration = duration;
@@ -45,6 +59,18 @@ public class Course {
 
     public Course(String name){
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", duration=" + duration +
+                ", type=" + type +
+                ", price=" + price +
+                '}';
     }
 
     /* GETTER AND SETTER */
