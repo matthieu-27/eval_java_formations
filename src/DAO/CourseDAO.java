@@ -62,7 +62,6 @@ public class CourseDAO extends DAO<Course> {
     @Override
     public Course update(Course obj) throws SQLException {
         String query = "UPDATE courses SET name = ?, description = ?, duration = ?, type = ?, price = ? WHERE id = ?";
-        ResultSet rs;
         try  {
             PreparedStatement ps;
             try (Connection c = connect()) {
@@ -73,10 +72,8 @@ public class CourseDAO extends DAO<Course> {
                 ps.setObject(4, obj.type());
                 ps.setBigDecimal(5, obj.price());
                 ps.setInt(6, obj.id());
-                rs = ps.executeQuery();
-                if(rs.next()){
-                    return new Course(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getInt("duration"), Enum.valueOf(CourseType.class, rs.getString("type")), rs.getBigDecimal("price"));
-                }
+                ps.executeUpdate();
+                return obj;
             }
         } catch (SQLException e ){
             e.printStackTrace();
@@ -86,6 +83,16 @@ public class CourseDAO extends DAO<Course> {
 
     @Override
     public void delete(Course obj) {
-
+        String query = "DELETE FROM courses WHERE ID = ?";
+        try {
+            PreparedStatement ps;
+            try(Connection c = connect()){
+                ps = c.prepareStatement(query);
+                ps.setInt(1, obj.id());
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
