@@ -5,6 +5,11 @@ import Enums.CourseType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+/**
+ * Classe représentant une formation
+ * @author Matthieu Couderc
+ * @version 1.0
+ */
 public class Course {
     private int id;
     private String name;
@@ -13,8 +18,18 @@ public class Course {
     private CourseType type;
     private BigDecimal price;
 
+
     public static ArrayList<Course> coursesList = new ArrayList<>();
 
+    /**
+     * Database constructor when an id is provided, add it to the list.
+     * @param id: the actual database id
+     * @param name: name eg "PHP"
+     * @param description: description eg "OOP, APIs, Laravel"
+     * @param duration duration in days
+     * @param type: CourseType.DISTANCIEL or CourseType.PRESENTIEL
+     * @param price : price in Euros
+     */
     public Course(int id, String name, String description, int duration, CourseType type, BigDecimal price){
         this.id = id;
         this.name = name;
@@ -26,6 +41,14 @@ public class Course {
     }
 
 
+    /**
+     * Constructor method overloads
+     * @param name: name eg "PHP"
+     * @param description: description eg "OOP, APIs, Laravel"
+     * @param duration duration in days
+     * @param type: CourseType.DISTANCIEL or CourseType.PRESENTIEL
+     * @param price : price in Euros
+     */
     public Course(String name, String description, int duration, CourseType type, BigDecimal price){
         this.name = name;
         this.description = description;

@@ -14,6 +14,11 @@ public class MariaDbConnection {
 
     private static Connection connect;
 
+    /**
+     * Create a connection instance with the database
+     * @return An instance of that connection
+     *
+     */
     public static Connection getInstance() {
         try {
             connect = DriverManager.getConnection(url, user, password);
