@@ -34,7 +34,7 @@ public class CourseService {
         return courses;
     }
 
-    public ArrayList<Course> getCourses(CourseType type) throws SQLException{
+    public ArrayList<Course> getCourses(CourseType type) throws SQLException {
         String query = "SELECT * FROM courses c WHERE c.type LIKE ?";
         ArrayList<Course> courses = new ArrayList<>();
         try {
@@ -54,5 +54,25 @@ public class CourseService {
         return courses;
     }
 
+    public ArrayList<Course> searchCourses(String keyword) throws SQLException {
+        String query = "SELECT * FROM courses c WHERE c.name LIKE ? OR c.description LIKE ?";
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            PreparedStatement ps;
+            try(Connection c = connect()){
+                ps = c.prepareStatement(query);
+                ps.setString(1, keyword);
+                ps.setString(2, keyword);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()){
+                    Course new_course = new Course(rs.getString("name"), rs.getString("description"), rs.getInt("duration"), Enum.valueOf(CourseType.class, rs.getString("type")), rs.getBigDecimal("price"));
+                    courses.add(new_course);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return courses;
+    }
 
 }
