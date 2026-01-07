@@ -72,3 +72,21 @@ CREATE TABLE `orders` (
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
 	FOREIGN KEY (`customer_id`) REFERENCES `customers`(`id`) ON DELETE CASCADE
 )COLLATE='utf8mb4_bin';
+
+INSERT INTO orders (status, total_amount, user_id, customer_id) VALUES ('PAID', 24.97, 1, 1);
+INSERT INTO orders (status, total_amount, user_id, customer_id) VALUES ('SHIPPED', 39.99, 1, 2);
+INSERT INTO orders (status, total_amount, user_id, customer_id) VALUES ('PENDING', 4.49, 2, 3);
+
+DROP TABLE IF EXISTS `carts`;
+CREATE TABLE `carts` (
+	`order_id` INT NOT NULL,
+	`course_id` INT NOT NULL,
+	FOREIGN KEY (`order_id`) REFERENCES `course`(`order_id`) ON DELETE CASCADE,
+	FOREIGN KEY (`course_id`) REFERENCES `courses`(`id`) ON DELETE CASCADE,
+	PRIMARY KEY (user_id, course_id)
+)COLLATE='utf8mb4_bin';
+
+INSERT INTO carts (order_id, course_id) VALUES (1, 1);
+INSERT INTO carts (order_id, course_id) VALUES (1, 3);
+INSERT INTO carts (order_id, course_id) VALUES (2, 2);
+INSERT INTO carts (order_id, course_id) VALUES (2, 5);
