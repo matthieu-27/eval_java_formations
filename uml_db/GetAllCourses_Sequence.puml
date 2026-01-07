@@ -1,0 +1,38 @@
+@startuml
+title Diagramme de Séquence : Afficher la liste des formations
+
+actor "User" as CB
+participant "Interface Console" as UI
+participant "Service" as BS
+participant "Course" as CObj
+database "Base de Données" as DB
+
+activate CB
+CB -> UI : Afficher toutes les formations
+activate UI
+
+UI -> BS : Choix 1
+deactivate UI
+
+activate BS
+BS -> DB : getAllCourses()
+deactivate BS
+
+activate DB
+DB -> CObj : pour chaque entrées :\nnew Course(id,name,description,duration,type,price)
+deactivate DB
+
+activate CObj
+CObj -> BS : ajout dans la liste statique
+deactivate CObj
+note left of DB : - Attribution de l'id\n -Ajout dans la liste statique
+
+activate BS
+BS -> UI : affichage de la liste
+deactivate BS
+
+activate UI
+UI -> CB
+deactivate DB
+
+@enduml
