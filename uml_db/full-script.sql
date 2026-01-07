@@ -38,7 +38,37 @@ insert into courses (name, description, duration, type, price) values ('jQuery',
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
 	`id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(50) NOT NULL
+	`name` VARCHAR(50) NOT NULL,
+	`email` VARCHAR(100) NOT NULL UNIQUE,
+	`password` VARCHAR(100) NOT NULL,
 )COLLATE='utf8mb4_bin';
 
-INSERT INTO users (NAME) VALUES ("Matt");
+INSERT INTO users (name, email, password) VALUES ("Matt", "matt@example.com", "password123");
+INSERT INTO users (name, email, password) VALUES ("Tristan", "tristan@example.com", "password456");
+
+DROP TABLE IF EXISTS `customers`;
+CREATE TABLE `customers` (
+	`id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	`first_name` VARCHAR(50) NOT NULL,
+	`last_name` VARCHAR(50) NOT NULL,
+	`email` VARCHAR(100) NOT NULL,
+	`address` VARCHAR(255) NOT NULL,
+	`phone` VARCHAR(20) NOT NULL,
+	`user_email` VARCHAR(50) NOT NULL,
+	FOREIGN KEY (`user_email`) REFERENCES `users`(`email`) ON DELETE CASCADE
+)COLLATE='utf8mb4_bin';
+
+INSERT INTO customers (first_name, last_name, email, address, phone) VALUES ("Matt", "Doe", "matt@example.com", "123 Main St, Paris", "0123456789");
+INSERT INTO customers (first_name, last_name, email, address, phone) VALUES ("Jane", "Doe", "matt@example.com", "456 Oak Ave, Lyon", "0987654321");
+INSERT INTO customers (first_name, last_name, email, address, phone) VALUES ("Bob", "Johnson", "tristan@example.com", "789 Pine Rd, Marseille", "0112233445");
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+	`id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	`status` VARCHAR(50) DEFAULT 'PENDING',
+	`total_amount` DECIMAL(10,2) NOT NULL,
+	`user_id` INT NOT NULL,
+	`customer_id` INT NOT NULL,
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
+	FOREIGN KEY (`customer_id`) REFERENCES `customers`(`id`) ON DELETE CASCADE
+)COLLATE='utf8mb4_bin';
