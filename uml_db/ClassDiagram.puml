@@ -1,8 +1,23 @@
 @startuml
 'https://plantuml.com/class-diagram
+
+together {
+    enum CourseType{
+        PRESENTIEL,
+        DISTANCIEL
+    }
+}
+
+
+
 class User{
 int id
 String name
+String email
+String password
+{static} ArrayList<User> usersList
+login(String email, String password)
+register(String email, String password)
 }
 
 class Course{
@@ -18,21 +33,95 @@ BigDecimal price
 {static} searchCourses(String keyword)
 }
 
-class "DAO<T>" {
-connect: CourseDao
+class Order {
+int id
+String status
+BigDecimal totalAmount
+int userId
+int customerID
+}
+
+class Customer {
+int id
+String firstName
+String lastName
+String email
+String address
+String phone
+}
+
+class Cart {
+int userId
+ArrayList<Course> items
+addItem(Course course): void
+removeItem(Course course): void
+getTotalAmount(): BigDecimal
+}
+
+abstract class "DAO<T>" {
+connect: Connection
 find(int id): T
 create(obj: T) : T
 update(obj: T) : T
 delete(obj: T) : void
 }
 
-User "1" -right- "1..*" Course : > consults
-"DAO<T>" <|-- Course
-enum CourseType{
-    PRESENTIEL,
-    DISTANCIEL
+"DAO<T>" <|-- CourseDao : extends
+"DAO<T>" <|-- CustomerDao: extends
+"DAO<T>" <|-- OrderDao: extends
+"DAO<T>" <|-- UserDao : extends
+"DAO<T>" <|-- CartDao: extends
+
+class CartDao{
+connect: Connection
+find(int id): Cart
+create(obj: Cart) : Cart
+update(obj: Cart) : Cart
+delete(obj: Cart) : void
 }
 
+class CourseDao{
+connect: Connection
+find(int id): Course
+create(obj: Course) : Course
+update(obj: Course) : Course
+delete(obj: Course) : void
+}
 
+class OrderDao{
+connect: Connection
+find(int id): Order
+create(obj: Order) : Order
+update(obj: Order) : Order
+delete(obj: Order) : void
+}
+
+class CustomerDao{
+connect: Connection
+find(int id): Customer
+create(obj: Customer) : Customer
+update(obj: Customer) : Customer
+delete(obj: Customer) : void
+}
+
+class UserDao{
+connect: Connection
+find(int id): User
+create(obj: User) : User
+update(obj: User) : User
+delete(obj: User) : void
+}
+
+CourseDao <|-- Course
+CustomerDao <|-- Customer
+OrderDao <|-- Order
+UserDao <|-- User
+CartDao <|-- Cart
+
+Order "0..*" - "1..*" Course : contains >
+(Order, Course) .. Cart
+User "1" ---left- "0..1" Cart : has
+Customer "1" --  "1..*" Order : associated
+User "1" -- "1..*" Order : places
 
 @enduml
